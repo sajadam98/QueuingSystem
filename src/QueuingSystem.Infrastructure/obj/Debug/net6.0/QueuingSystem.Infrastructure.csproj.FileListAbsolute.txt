@@ -1,0 +1,12 @@
+G:\backend\QueuingSystem\src\QueuingSystem.Infrastructure\bin\Debug\net6.0\QueuingSystem.Infrastructure.deps.json
+G:\backend\QueuingSystem\src\QueuingSystem.Infrastructure\bin\Debug\net6.0\QueuingSystem.Infrastructure.dll
+G:\backend\QueuingSystem\src\QueuingSystem.Infrastructure\bin\Debug\net6.0\QueuingSystem.Infrastructure.pdb
+G:\backend\QueuingSystem\src\QueuingSystem.Infrastructure\obj\Debug\net6.0\QueuingSystem.Infrastructure.csproj.AssemblyReference.cache
+G:\backend\QueuingSystem\src\QueuingSystem.Infrastructure\obj\Debug\net6.0\QueuingSystem.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+G:\backend\QueuingSystem\src\QueuingSystem.Infrastructure\obj\Debug\net6.0\QueuingSystem.Infrastructure.AssemblyInfoInputs.cache
+G:\backend\QueuingSystem\src\QueuingSystem.Infrastructure\obj\Debug\net6.0\QueuingSystem.Infrastructure.AssemblyInfo.cs
+G:\backend\QueuingSystem\src\QueuingSystem.Infrastructure\obj\Debug\net6.0\QueuingSystem.Infrastructure.csproj.CoreCompileInputs.cache
+G:\backend\QueuingSystem\src\QueuingSystem.Infrastructure\obj\Debug\net6.0\QueuingSystem.Infrastructure.dll
+G:\backend\QueuingSystem\src\QueuingSystem.Infrastructure\obj\Debug\net6.0\refint\QueuingSystem.Infrastructure.dll
+G:\backend\QueuingSystem\src\QueuingSystem.Infrastructure\obj\Debug\net6.0\QueuingSystem.Infrastructure.pdb
+G:\backend\QueuingSystem\src\QueuingSystem.Infrastructure\obj\Debug\net6.0\ref\QueuingSystem.Infrastructure.dll
