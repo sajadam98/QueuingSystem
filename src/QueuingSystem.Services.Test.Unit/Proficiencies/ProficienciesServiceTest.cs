@@ -49,9 +49,7 @@ public class ProficienciesServiceTest
     [Fact]
     public void Update_updates_proficiency_with_given_id_properly()
     {
-        var proficiency =
-            ProficiencyFactory.GenerateProficiency("Dentistry");
-        _dbContext.Manipulate(_ => _proficiencies.Add(proficiency));
+        var proficiency = AddProficiencyInDataBase();
         var dto = new UpdateProficiencyDto
         {
             Name = "Edited Dentistry",
@@ -61,7 +59,7 @@ public class ProficienciesServiceTest
 
         var expected =
             _proficiencies.First(_ => _.Id == proficiency.Id);
-        expected!.Name.Should().Be(dto.Name); 
+        expected.Name.Should().Be(dto.Name);
     }
 
     [Fact]
@@ -75,46 +73,46 @@ public class ProficienciesServiceTest
 
         var expected = () => _sut.Update(1000, dto);
 
-        expected!.Should()
+        expected.Should()
             .ThrowExactly<ProficiencyNotFoundWithGivenIdException>();
     }
 
     [Fact]
     public async void Delete_deletes_proficiency_with_given_id_properly()
     {
-        var proficiency =
-            ProficiencyFactory.GenerateProficiency("Dentistry");
-
-        _dbContext.Manipulate(_ => _proficiencies.Add(proficiency));
+        var proficiency = AddProficiencyInDataBase();
 
         _sut.Delete(proficiency.Id);
 
         var expected = await _sut.GetAll();
 
         expected.Should().HaveCount(0);
-        expected.Should().NotContain(_ => _.Name == "Dentistry");
+        expected.Should().NotContain(_ => _.Name == proficiency.Name);
     }
 
     [Fact]
     public void
         Delete_throw_ProficiencyNotFoundWithGivenIdException_when_proficiency_with_given_id_not_exist()
     {
-        var proficiency =
-            ProficiencyFactory.GenerateProficiency("Dentistry");
+        var proficiency = AddProficiencyInDataBase();
 
-        _dbContext.Manipulate(_ => _proficiencies.Add(proficiency));
-
-
-        var expected = () => _sut.Delete(1000);
+        var expected = () => _sut.Delete(proficiency.Id + 45);
 
         expected.Should()
             .ThrowExactly<ProficiencyNotFoundWithGivenIdException>();
     }
 
+    private Proficiency AddProficiencyInDataBase()
+    {
+        var proficiency =
+            ProficiencyFactory.GenerateProficiency("Dentistry");
+        _dbContext.Manipulate(_ => _proficiencies.Add(proficiency));
+        return proficiency;
+    }
+
     private void GenerateProficienciesInDataBase()
     {
         var proficiencies = ProficiencyFactory.GenerateProficiencyList();
-
         _dbContext.Manipulate(_ =>
             _proficiencies.AddRange(proficiencies));
     }

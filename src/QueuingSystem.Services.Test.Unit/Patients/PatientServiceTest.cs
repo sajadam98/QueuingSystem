@@ -40,9 +40,9 @@ public class PatientServiceTest
         Add_throw_DuplicatePatientsNationalCodeException_with_given_national_code_properly()
     {
         var dto = PatientFactory.GenerateAddPatientDto("dummy1");
-
         _repository.Setup(_ => _.IsNationalCodeExist(dto.NationalCode))
             .Returns(true);
+
         Action expected = () => _sut.Add(dto);
 
         expected.Should()
@@ -160,7 +160,7 @@ public class PatientServiceTest
 
         _unitOfWork.Verify(_ => _.Save());
     }
-    
+
     [Fact]
     public void
         Activate_throw_PatientNotFoundException_patient_with_given_id_not_exist()
