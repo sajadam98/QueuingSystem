@@ -50,18 +50,18 @@ public class ProficienciesServiceTest
     public void Update_updates_proficiency_with_given_id_properly()
     {
         var proficiency =
-            ProficiencyFactory.GenerateProficiency("Dentistary");
+            ProficiencyFactory.GenerateProficiency("Dentistry");
         _dbContext.Manipulate(_ => _proficiencies.Add(proficiency));
         var dto = new UpdateProficiencyDto
         {
-            Name = "Edited Dentistary",
+            Name = "Edited Dentistry",
         };
 
         _sut.Update(proficiency.Id, dto);
 
         var expected =
-            _proficiencies.First(_ => _.Id == proficiency.Id+45);
-        expected.Name.Should().Be(dto.Name);
+            _proficiencies.First(_ => _.Id == proficiency.Id);
+        expected!.Name.Should().Be(dto.Name); 
     }
 
     [Fact]
@@ -70,7 +70,7 @@ public class ProficienciesServiceTest
     {
         var dto = new UpdateProficiencyDto
         {
-            Name = "Edited Dentistary",
+            Name = "Edited Dentistry",
         };
 
         var expected = () => _sut.Update(1000, dto);
@@ -83,7 +83,7 @@ public class ProficienciesServiceTest
     public async void Delete_deletes_proficiency_with_given_id_properly()
     {
         var proficiency =
-            ProficiencyFactory.GenerateProficiency("Dentistary");
+            ProficiencyFactory.GenerateProficiency("Dentistry");
 
         _dbContext.Manipulate(_ => _proficiencies.Add(proficiency));
 
@@ -92,7 +92,7 @@ public class ProficienciesServiceTest
         var expected = await _sut.GetAll();
 
         expected.Should().HaveCount(0);
-        expected.Should().NotContain(_ => _.Name == "Dentistary");
+        expected.Should().NotContain(_ => _.Name == "Dentistry");
     }
 
     [Fact]
@@ -100,7 +100,7 @@ public class ProficienciesServiceTest
         Delete_throw_ProficiencyNotFoundWithGivenIdException_when_proficiency_with_given_id_not_exist()
     {
         var proficiency =
-            ProficiencyFactory.GenerateProficiency("Dentistary");
+            ProficiencyFactory.GenerateProficiency("Dentistry");
 
         _dbContext.Manipulate(_ => _proficiencies.Add(proficiency));
 

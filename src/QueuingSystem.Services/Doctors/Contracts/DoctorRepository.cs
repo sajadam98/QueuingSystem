@@ -5,4 +5,6 @@ public interface DoctorRepository : Repository
     public void Update(Doctor doctor);
     public void Delete(Doctor doctor);
     public Doctor Find(int id);
+
+    public bool IsNationalCodeExist(string nationalCode);
 }

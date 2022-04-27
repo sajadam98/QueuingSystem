@@ -41,4 +41,9 @@ public class EFDoctorRepository : DoctorRepository
     {
         return _doctors.FirstOrDefault(_ => _.Id == id);
     }
+
+    public bool IsNationalCodeExist(string nationalCode)
+    {
+        return _doctors.Any(_ => _.NationalCode == nationalCode);
+    }
 }
