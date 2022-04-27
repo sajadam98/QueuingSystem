@@ -122,7 +122,7 @@ public class AppointmentServiceTest
         _sut.Update(appointment.Id, dto);
 
         var expected = _appointments.Should().Contain(_ =>
-            _.Date == dto.Date && _.DoctorId == doctor2.Id &&
+            _.Date.Date == dto.Date.Date && _.DoctorId == doctor2.Id &&
             _.PatientId == patient2.Id);
     }
 
@@ -161,6 +161,35 @@ public class AppointmentServiceTest
         var expected = () => _sut.Update(appointment.Id, dto);
 
         expected.Should().ThrowExactly<DuplicateAppointmentException>();
+    }
+
+    [Fact]
+    public void Delete_deletes_appointment_with_given_id_properly()
+    {
+        var doctor = AddDoctorToDataBase("dummy", "dummy1");
+        var patient = AddPatientToDataBase("dummy");
+        var appointment = AddAppointmentToDataBase(doctor, patient);
+
+        _sut.Delete(appointment.Id);
+
+        _appointments.Should().HaveCount(0);
+        _appointments.Should().NotContain(_ =>
+            _.Date.Date == appointment.Date.Date &&
+            _.DoctorId == appointment.DoctorId &&
+            _.PatientId == appointment.PatientId);
+    }
+
+    [Fact]
+    public void
+        Delete_throw_AppointmentNotFoundException_appointment_with_given_id_not_exist()
+    {
+        var doctor = AddDoctorToDataBase("dummy", "dummy1");
+        var patient = AddPatientToDataBase("dummy");
+        var appointment = AddAppointmentToDataBase(doctor, patient);
+
+        var expected = () => _sut.Delete(appointment.Id);
+
+        expected.Should().ThrowExactly<AppointmentNotFoundException>();
     }
 
     private Appointment AddAppointmentToDataBase(Doctor doctor,
