@@ -5,28 +5,39 @@ public class AppointmentAppService : AppointmentService
     private readonly UnitOfWork _unitOfWork;
 
     public AppointmentAppService(AppointmentRepository repository,
+        DoctorRepository doctorRepository,
         UnitOfWork unitOfWork)
     {
         _repository = repository;
+        _doctorRepository = doctorRepository;
         _unitOfWork = unitOfWork;
     }
 
     public void Add(AddAppointmentDto dto)
     {
-        var appointment = new Appointment
-        {
-            Date = dto.Date,
-            DoctorId = dto.DoctorId,
-            PatientId = dto.PatientId,
-        };
-        var doctorsAppointmentInDay = _repository
-            .GetDoctorsAppointmentInDay(dto.DoctorId, dto.Date);
         var doctor =
             _doctorRepository.Find(dto.DoctorId);
         if (doctor == null)
         {
             throw new DoctorNotFoundException();
         }
+
+        var isAppointmentDuplicate =
+            _repository.IsAppointmentDuplicate(dto.DoctorId, dto.PatientId,
+                dto.Date);
+        if (isAppointmentDuplicate)
+        {
+            throw new DuplicateAppointmentException();
+        }
+
+        var appointment = new Appointment
+        {
+            Date = dto.Date,
+            DoctorId = doctor.Id,
+            PatientId = dto.PatientId,
+        };
+        var doctorsAppointmentInDay = _repository
+            .GetDoctorsAppointmentInDay(dto.DoctorId, dto.Date);
 
         if (doctorsAppointmentInDay >= doctor.PatientsPerDay)
         {
@@ -48,6 +59,15 @@ public class AppointmentAppService : AppointmentService
         if (appointment == null)
         {
             throw new AppointmentNotFoundException();
+        }
+
+        var isAppointmentDuplicate =
+            _repository.IsAppointmentDuplicate(dto.DoctorId,
+                dto.PatientId,
+                dto.Date);
+        if (isAppointmentDuplicate)
+        {
+            throw new DuplicateAppointmentException();
         }
 
         appointment.DoctorId = dto.DoctorId;

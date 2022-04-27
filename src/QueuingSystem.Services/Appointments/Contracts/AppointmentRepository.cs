@@ -6,4 +6,5 @@ public interface AppointmentRepository : Repository
     public void Delete(Appointment appointment);
     public Appointment Find(int id);
     public int GetDoctorsAppointmentInDay(int dtoDoctorId, DateTime dtoDate);
+    public bool IsAppointmentDuplicate(int doctorId, int patientId, DateTime date);
 }

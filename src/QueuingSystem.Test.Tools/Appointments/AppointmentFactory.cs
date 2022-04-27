@@ -1,58 +1,24 @@
 public class AppointmentFactory
 {
-    public static AddAppointmentDto GenerateAddAppointmentDto()
+    public static AddAppointmentDto GenerateAddAppointmentDto(int doctorId, int patientId)
     {
         var dto = new AddAppointmentDto
         {
             Date = DateTime.Now,
-            DoctorId = 1,
-            PatientId = 1,
+            DoctorId = doctorId,
+            PatientId = patientId,
         };
-
         return dto;
     }
-
-    public static Task<IList<GetAppointmentDto>>
-        GenerateGetAppointmentDtoList()
+    
+    public static UpdateAppointmentDto GenerateUpdateAppointmentDto(int doctorId, int patientId)
     {
-        var appointments = new List<GetAppointmentDto>
+        var dto = new UpdateAppointmentDto
         {
-            new GetAppointmentDto
-            {
-                Id = 1,
-                Date = DateTime.Now.AddDays(-1),
-                Doctor = "dummy1",
-                Patient = "dummy1",
-            },
-            new GetAppointmentDto
-            {
-                Id = 2,
-                Date = DateTime.Now.AddDays(-2),
-                Doctor = "dummy2",
-                Patient = "dummy2",
-            },
-            new GetAppointmentDto
-            {
-                Id = 3,
-                Date = DateTime.Now.AddDays(-3),
-                Doctor = "dummy3",
-                Patient = "dummy3",
-            },
-            new GetAppointmentDto
-            {
-                Id = 4,
-                Date = DateTime.Now.AddDays(-4),
-                Doctor = "dummy4",
-                Patient = "dummy4",
-            },
-            new GetAppointmentDto
-            {
-                Id = 5,
-                Date = DateTime.Now.AddDays(-5),
-                Doctor = "dummy5",
-                Patient = "dummy5",
-            },
+            Date = DateTime.Now,
+            DoctorId = doctorId,
+            PatientId = patientId,
         };
-        return Task.FromResult<IList<GetAppointmentDto>>(appointments);
+        return dto;
     }
 }
