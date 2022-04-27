@@ -30,6 +30,11 @@ public class EfAppointmentRepository : AppointmentRepository
         return _appointments.FirstOrDefault(_ => _.Id == id);
     }
 
+    public int GetDoctorsAppointmentInDay(int doctorId, DateTime date)
+    {
+        return _appointments.Count(_ => _.DoctorId == doctorId && _.Date == date);
+    }
+
     public void Delete(Appointment appointment)
     {
         _appointments.Remove(appointment);

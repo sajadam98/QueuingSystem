@@ -1,6 +1,7 @@
 public class AppointmentAppService : AppointmentService
 {
     private readonly AppointmentRepository _repository;
+    private readonly DoctorRepository _doctorRepository;
     private readonly UnitOfWork _unitOfWork;
 
     public AppointmentAppService(AppointmentRepository repository,
@@ -16,16 +17,22 @@ public class AppointmentAppService : AppointmentService
         {
             Date = dto.Date,
             DoctorId = dto.DoctorId,
-            Doctor = new Doctor
-            {
-                Id = dto.DoctorId,
-            },
             PatientId = dto.PatientId,
-            Patient = new Patient
-            {
-                Id = dto.PatientId,
-            },
         };
+        var doctorsAppointmentInDay = _repository
+            .GetDoctorsAppointmentInDay(dto.DoctorId, dto.Date);
+        var doctor =
+            _doctorRepository.Find(dto.DoctorId);
+        if (doctor == null)
+        {
+            throw new DoctorNotFoundException();
+        }
+
+        if (doctorsAppointmentInDay >= doctor.PatientsPerDay)
+        {
+            throw new DoctorsAppointmentPerDayIsCompletedException();
+        }
+
         _repository.Add(appointment);
         _unitOfWork.Save();
     }

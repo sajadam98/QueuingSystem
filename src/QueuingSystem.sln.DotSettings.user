@@ -24,5 +24,6 @@
     &lt;TestId&gt;xUnit::3E39B437-84C5-44E4-A0E8-D84995798957::net6.0::DoctorsSeviceTest.Update_throw_DuplicateDoctorsNationalCodeException_when_doctors_national_code_duplicate&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::3E39B437-84C5-44E4-A0E8-D84995798957::net6.0::DoctorsSeviceTest.DeActivate_de_activate_doctor_with_given_id_properly&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::3E39B437-84C5-44E4-A0E8-D84995798957::net6.0::DoctorsSeviceTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::3E39B437-84C5-44E4-A0E8-D84995798957::net6.0::AppointmentServiceTest&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
