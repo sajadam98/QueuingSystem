@@ -170,3 +170,5 @@ G:\backend\QueuingSystem\src\QueuingSystem.Services.Test.Unit\obj\Debug\net6.0\r
 G:\backend\QueuingSystem\src\QueuingSystem.Services.Test.Unit\obj\Debug\net6.0\QueuingSystem.Services.Test.Unit.pdb
 G:\backend\QueuingSystem\src\QueuingSystem.Services.Test.Unit\obj\Debug\net6.0\QueuingSystem.Services.Test.Unit.genruntimeconfig.cache
 G:\backend\QueuingSystem\src\QueuingSystem.Services.Test.Unit\obj\Debug\net6.0\ref\QueuingSystem.Services.Test.Unit.dll
+G:\backend\QueuingSystem\src\QueuingSystem.Services.Test.Unit\bin\Debug\net6.0\Castle.Core.dll
+G:\backend\QueuingSystem\src\QueuingSystem.Services.Test.Unit\bin\Debug\net6.0\Moq.dll

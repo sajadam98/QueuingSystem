@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "lFY96fQFL8YMr9KVJXK31qXpGjam2xZ4yl6eaNZd7fM=",
+  "Source": "QueuingSystem.RestApi",
+  "BasePath": "_content/QueuingSystem.RestApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
