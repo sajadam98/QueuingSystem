@@ -5,62 +5,33 @@ public class DoctorFactory
     {
         var dto = new AddDoctorDto
         {
-            FirstName = "Sajad",
-            LastName = "Amiri",
-            phoneNumber = "09172338020",
-            NationalCode = "2420698843",
+            FirstName = "dummy",
+            LastName = "dummy",
+            phoneNumber = "dummy",
+            NationalCode = "dummy",
             PatientPerDay = 5,
             ProficiencyId = proficiency.Id,
         };
         return dto;
     }
 
-    public static Doctor GenerateDoctor(Proficiency proficiency)
+    public static Doctor GenerateDoctor(Proficiency proficiency,
+        string nationalCode)
     {
-        var doctor = new Doctor
-        {
-            FirstName = "Sajad",
-            LastName = "Amiri",
-            PhoneNumber = "09172338020",
-            NationalCode = "2420698843",
-            PatientsPerDay = 5,
-            ProficiencyId = proficiency.Id,
-        };
-        return doctor;
+        var doctor = new DoctorBuilder().WithProficiency(proficiency)
+            .WithNationalCode(nationalCode);
+        return doctor.Build();
     }
 
     public static List<Doctor> GenerateDoctorsList(Proficiency proficiency)
     {
-        var doctors = new List<Doctor>
-        {
-            new Doctor
-            {
-                FirstName = "dummy1",
-                LastName = "dummy1",
-                PhoneNumber = "09172338020",
-                NationalCode = "dummy1",
-                PatientsPerDay = 5,
-                ProficiencyId = proficiency.Id,
-            },
-            new Doctor
-            {
-                FirstName = "dummy2",
-                LastName = "dummy2",
-                PhoneNumber = "09172338020",
-                NationalCode = "dummy2",
-                PatientsPerDay = 4,
-                ProficiencyId = proficiency.Id,
-            },
-            new Doctor
-            {
-                FirstName = "dummy3",
-                LastName = "dummy3",
-                PhoneNumber = "09172338020",
-                NationalCode = "dummy3",
-                PatientsPerDay = 3,
-                ProficiencyId = proficiency.Id,
-            },
-        };
+        var doctors = new List<Doctor>();
+        doctors.Add(
+            DoctorFactory.GenerateDoctor(proficiency, "dummy1"));
+        doctors.Add(
+            DoctorFactory.GenerateDoctor(proficiency, "dummy2"));
+        doctors.Add(
+            DoctorFactory.GenerateDoctor(proficiency, "dummy3"));
         return doctors;
     }
 

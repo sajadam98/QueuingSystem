@@ -9,13 +9,9 @@ public class PatientServiceTest
     private readonly PatientService _sut;
     private readonly Mock<PatientRepository> _repository;
     private readonly Mock<UnitOfWork> _unitOfWork;
-    private readonly EFDataContext _dbContext;
-    private readonly DbSet<Patient> _patients;
 
     public PatientServiceTest()
     {
-        _dbContext = new EFInMemoryDatabase()
-            .CreateDataContext<EFDataContext>();
         _unitOfWork = new Mock<UnitOfWork>();
         _repository = new Mock<PatientRepository>();
         _sut = new PatientAppService(_repository.Object,

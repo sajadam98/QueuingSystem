@@ -15,5 +15,14 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=f34e6ba7_002D155e_002D4875_002Db280_002D6c9c5b7e3982/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Add_adds_patient_properly" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::3E39B437-84C5-44E4-A0E8-D84995798957::net6.0::PatientServiceTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::3E39B437-84C5-44E4-A0E8-D84995798957::net6.0::AppointmentServiceTest.Add_adds_appointment_properly&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::3E39B437-84C5-44E4-A0E8-D84995798957::net6.0::AppointmentServiceTest.GetAll&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::3E39B437-84C5-44E4-A0E8-D84995798957::net6.0::DoctorsSeviceTest.GetAll_returns_doctors_list_properly&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::3E39B437-84C5-44E4-A0E8-D84995798957::net6.0::DoctorsSeviceTest.Update_updates_doctor_properly&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::3E39B437-84C5-44E4-A0E8-D84995798957::net6.0::DoctorsSeviceTest.Update_throw_DoctorNotFoundException_doctor_with_given_id_not_exist&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::3E39B437-84C5-44E4-A0E8-D84995798957::net6.0::DoctorsSeviceTest.Update_throw_InvalidPatientsPerDayException_when_patient_per_day_is_invalid&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::3E39B437-84C5-44E4-A0E8-D84995798957::net6.0::DoctorsSeviceTest.Update_throw_DuplicateDoctorsNationalCodeException_when_doctors_national_code_duplicate&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::3E39B437-84C5-44E4-A0E8-D84995798957::net6.0::DoctorsSeviceTest.DeActivate_de_activate_doctor_with_given_id_properly&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::3E39B437-84C5-44E4-A0E8-D84995798957::net6.0::DoctorsSeviceTest&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

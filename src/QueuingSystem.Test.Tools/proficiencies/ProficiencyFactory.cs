@@ -1,5 +1,6 @@
 public class ProficiencyFactory
 {
+    
     public static AddProficiencyDto GenerateAddProficiencyDto(string title)
     {
         var dto = new AddProficiencyDto
