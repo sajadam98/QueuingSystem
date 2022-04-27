@@ -12,7 +12,8 @@ public class PatientServiceTest
     public PatientServiceTest()
     {
         _unitOfWork = new Mock<UnitOfWork>().Object;
-        _dbContext = new Mock<EFDataContext>().Object;
+        _dbContext = new EFInMemoryDatabase()
+            .CreateDataContext<EFDataContext>();
         _patients = _dbContext.Set<Patient>();
     }
 }
