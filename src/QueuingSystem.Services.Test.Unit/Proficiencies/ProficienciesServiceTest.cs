@@ -71,7 +71,7 @@ public class ProficienciesServiceTest
             Name = "Edited Dentistry",
         };
 
-        var expected = () => _sut.Update(1000, dto);
+        var expected = () => _sut.Update(-1, dto);
 
         expected.Should()
             .ThrowExactly<ProficiencyNotFoundWithGivenIdException>();
@@ -96,7 +96,7 @@ public class ProficienciesServiceTest
     {
         var proficiency = AddProficiencyInDataBase();
 
-        var expected = () => _sut.Delete(proficiency.Id + 45);
+        var expected = () => _sut.Delete(-1);
 
         expected.Should()
             .ThrowExactly<ProficiencyNotFoundWithGivenIdException>();

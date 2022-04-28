@@ -23,17 +23,7 @@ public class DoctorFactory
         return doctor.Build();
     }
 
-    public static List<Doctor> GenerateDoctorsList(Proficiency proficiency)
-    {
-        var doctors = new List<Doctor>();
-        doctors.Add(
-            DoctorFactory.GenerateDoctor(proficiency, "dummy1"));
-        doctors.Add(
-            DoctorFactory.GenerateDoctor(proficiency, "dummy2"));
-        doctors.Add(
-            DoctorFactory.GenerateDoctor(proficiency, "dummy3"));
-        return doctors;
-    }
+    
 
     public static UpdateDoctorDto GenerateUpdateDoctorDto(
         Proficiency proficiency)

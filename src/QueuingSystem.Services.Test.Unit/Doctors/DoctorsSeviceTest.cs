@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
@@ -54,7 +55,6 @@ public class DoctorsSeviceTest
         var dto = DoctorFactory.GenerateAddDoctorDto(proficiency);
         dto.PatientPerDay = 0;
 
-
         var expected = () => _sut.Add(dto);
 
         expected.Should().ThrowExactly<InvalidPatientsPerDayException>();
@@ -79,21 +79,25 @@ public class DoctorsSeviceTest
     [Fact]
     public async void GetAll_returns_doctors_list_properly()
     {
-        AddDoctorInDataBase();
+        var proficiency = AddProficiencyInDataBase();
+        var doctors = new List<Doctor>();
+        var doctor1 =
+            DoctorFactory.GenerateDoctor(proficiency, "dummy1");
+        doctors.Add(doctor1);
+        var doctor2 =
+            DoctorFactory.GenerateDoctor(proficiency, "dummy2");
+        doctors.Add(doctor2);
+        var doctor3 =
+            DoctorFactory.GenerateDoctor(proficiency, "dummy3");
+        doctors.Add(doctor3);
+        _dbContext.Manipulate(_ => _doctors.AddRange(doctors));
 
         var expected = await _sut.GetAll();
 
         expected.Should().HaveCount(3);
-        expected.Should().Contain(_ => _.NationalCode == "dummy1");
-        expected.Should().Contain(_ => _.NationalCode == "dummy2");
-        expected.Should().Contain(_ => _.NationalCode == "dummy3");
-    }
-
-    private void AddDoctorInDataBase()
-    {
-        var proficiency = AddProficiencyInDataBase();
-        var doctors = DoctorFactory.GenerateDoctorsList(proficiency);
-        _dbContext.Manipulate(_ => _doctors.AddRange(doctors));
+        CheckDoctorExist(expected, doctor1);
+        CheckDoctorExist(expected, doctor2);
+        CheckDoctorExist(expected, doctor3);
     }
 
     [Fact]
@@ -183,7 +187,7 @@ public class DoctorsSeviceTest
             AddProficiencyInDataBase();
         var doctor = AddDoctorInDataBase(proficiency);
 
-        var expected = () => _sut.DeActivate(doctor.Id + 45);
+        var expected = () => _sut.DeActivate(-1);
 
         expected.Should().ThrowExactly<DoctorNotFoundException>();
     }
@@ -207,8 +211,18 @@ public class DoctorsSeviceTest
         var proficiency = AddProficiencyInDataBase();
         var doctor = AddDoctorInDataBase(proficiency);
 
-        var expected = () => _sut.Activate(doctor.Id + 45);
+        var expected = () => _sut.Activate(-1);
 
         expected.Should().ThrowExactly<DoctorNotFoundException>();
+    }
+
+    private void CheckDoctorExist(IList<GetDoctorDto> expected,
+        Doctor doctor)
+    {
+        expected.Should().Contain(_ =>
+            _.NationalCode == doctor.NationalCode &&
+            _.phoneNumber == doctor.PhoneNumber &&
+            _.FirstName == doctor.FirstName &&
+            _.LastName == doctor.LastName);
     }
 }

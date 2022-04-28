@@ -68,7 +68,7 @@ public class AppointmentServiceTest
         var patient = AddPatientToDataBase("dummy");
         AddAppointmentToDataBase(doctor, patient);
         var dto =
-            AppointmentFactory.GenerateAddAppointmentDto(doctor.Id + 45,
+            AppointmentFactory.GenerateAddAppointmentDto(-1,
                 patient.Id);
 
         var expected = () => _sut.Add(dto);
@@ -104,7 +104,9 @@ public class AppointmentServiceTest
 
         var expected = await _sut.GetAll();
 
-        CheckGetAllResult(expected);
+        expected.Should().HaveCount(2);
+        CheckGetAllResult(expected, doctor, patient, -1, 1);
+        CheckGetAllResult(expected, doctor, patient2, -2, 2);
     }
 
     [Fact]
@@ -121,7 +123,7 @@ public class AppointmentServiceTest
 
         _sut.Update(appointment.Id, dto);
 
-        var expected = _appointments.Should().Contain(_ =>
+        _appointments.Should().Contain(_ =>
             _.Date.Date == dto.Date.Date && _.DoctorId == doctor2.Id &&
             _.PatientId == patient2.Id);
     }
@@ -139,7 +141,7 @@ public class AppointmentServiceTest
             AppointmentFactory.GenerateUpdateAppointmentDto(doctor2.Id,
                 patient2.Id);
 
-        var expected = () => _sut.Update(appointment.Id + 45, dto);
+        var expected = () => _sut.Update(-1, dto);
 
         expected.Should().ThrowExactly<AppointmentNotFoundException>();
     }
@@ -153,7 +155,7 @@ public class AppointmentServiceTest
         var patient = AddPatientToDataBase("dummy");
         var patient2 = AddPatientToDataBase("dummy2");
         var appointment = AddAppointmentToDataBase(doctor, patient);
-        var appointment2 = AddAppointmentToDataBase(doctor2, patient2);
+        AddAppointmentToDataBase(doctor2, patient2);
         var dto =
             AppointmentFactory.GenerateUpdateAppointmentDto(doctor2.Id,
                 patient2.Id);
@@ -187,7 +189,7 @@ public class AppointmentServiceTest
         var patient = AddPatientToDataBase("dummy");
         var appointment = AddAppointmentToDataBase(doctor, patient);
 
-        var expected = () => _sut.Delete(appointment.Id);
+        var expected = () => _sut.Delete(-1);
 
         expected.Should().ThrowExactly<AppointmentNotFoundException>();
     }
@@ -205,22 +207,17 @@ public class AppointmentServiceTest
         return appointment;
     }
 
-    private static void CheckGetAllResult(
-        IList<GetAppointmentDto> expected)
+    private void CheckGetAllResult(
+        IList<GetAppointmentDto> expected, Doctor doctor, Patient patient,
+        int timeDifference, int id)
     {
-        expected.Should().HaveCount(2);
         expected.Should().Contain(_ =>
-            _.Id == 1 && _.Date.Date == DateTime.Now.AddDays(-1).Date &&
-            _.DoctorsFirstName == "dummy" &&
-            _.DoctorsLastName == "dummy" &&
-            _.PatientFirstName == "dummy1" &&
-            _.PatientLastName == "dummy1");
-        expected.Should().Contain(_ =>
-            _.Id == 2 && _.Date.Date == DateTime.Now.AddDays(-2).Date &&
-            _.DoctorsFirstName == "dummy" &&
-            _.DoctorsLastName == "dummy" &&
-            _.PatientFirstName == "dummy2" &&
-            _.PatientLastName == "dummy2");
+            _.Id == id &&
+            _.Date.Date == DateTime.Now.AddDays(timeDifference).Date &&
+            _.DoctorsFirstName == doctor.FirstName &&
+            _.DoctorsLastName == doctor.LastName &&
+            _.PatientFirstName == patient.FirstName &&
+            _.PatientLastName == patient.LastName);
     }
 
     private void AddAppointmentToDataBase(List<Appointment> appointments,

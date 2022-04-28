@@ -87,17 +87,16 @@ public class PatientServiceTest
     public void
         Update_throw_PatientNotFoundException_with_given_id_not_exist()
     {
-        var patientId = 1;
         var dto = PatientFactory.GenerateUpdatePatientDto("dummy2");
 
-        Action expected = () => _sut.Update(patientId, dto);
+        Action expected = () => _sut.Update(-1, dto);
 
         expected.Should().ThrowExactly<PatientNotFoundException>();
     }
 
     [Fact]
     public void
-        Update_throw_DuplicatePatientsNationalCodeException_with_given_id_not_exist()
+        Update_throw_DuplicatePatientsNationalCodeException_patient_with_given_id_is_exist()
     {
         var patientId = 1;
         var dto = PatientFactory.GenerateUpdatePatientDto("dummy2");
@@ -135,9 +134,7 @@ public class PatientServiceTest
     public void
         DeActivate_throw_PatientNotFoundException_patient_with_given_id_not_exist()
     {
-        var patientId = 1;
-
-        Action expected = () => _sut.DeActivate(patientId);
+        Action expected = () => _sut.DeActivate(-1);
 
         expected.Should().ThrowExactly<PatientNotFoundException>();
     }
@@ -165,9 +162,7 @@ public class PatientServiceTest
     public void
         Activate_throw_PatientNotFoundException_patient_with_given_id_not_exist()
     {
-        var patientId = 1;
-
-        Action expected = () => _sut.Activate(patientId);
+        Action expected = () => _sut.Activate(-1);
 
         expected.Should().ThrowExactly<PatientNotFoundException>();
     }
