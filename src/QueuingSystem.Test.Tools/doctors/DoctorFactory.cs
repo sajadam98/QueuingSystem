@@ -23,8 +23,6 @@ public class DoctorFactory
         return doctor.Build();
     }
 
-    
-
     public static UpdateDoctorDto GenerateUpdateDoctorDto(
         Proficiency proficiency)
     {
