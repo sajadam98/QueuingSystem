@@ -4,6 +4,124 @@
     "G:\\backend\\QueuingSystem\\src\\QueuingSystem.RestApi\\QueuingSystem.RestApi.csproj": {}
   },
   "projects": {
+    "G:\\backend\\QueuingSystem\\src\\QueuingSystem.Entities\\QueuingSystem.Entities.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\backend\\QueuingSystem\\src\\QueuingSystem.Entities\\QueuingSystem.Entities.csproj",
+        "projectName": "QueuingSystem.Entities",
+        "projectPath": "G:\\backend\\QueuingSystem\\src\\QueuingSystem.Entities\\QueuingSystem.Entities.csproj",
+        "packagesPath": "C:\\Users\\Acer\\.nuget\\packages\\",
+        "outputPath": "G:\\backend\\QueuingSystem\\src\\QueuingSystem.Entities\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Acer\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\backend\\QueuingSystem\\src\\QueuingSystem.Infrastructure\\QueuingSystem.Infrastructure.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\backend\\QueuingSystem\\src\\QueuingSystem.Infrastructure\\QueuingSystem.Infrastructure.csproj",
+        "projectName": "QueuingSystem.Infrastructure",
+        "projectPath": "G:\\backend\\QueuingSystem\\src\\QueuingSystem.Infrastructure\\QueuingSystem.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\Acer\\.nuget\\packages\\",
+        "outputPath": "G:\\backend\\QueuingSystem\\src\\QueuingSystem.Infrastructure\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Acer\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[6.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[6.0.4, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
     "G:\\backend\\QueuingSystem\\src\\QueuingSystem.RestApi\\QueuingSystem.RestApi.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -27,7 +145,11 @@
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "G:\\backend\\QueuingSystem\\src\\QueuingSystem.Services\\QueuingSystem.Services.csproj": {
+                "projectPath": "G:\\backend\\QueuingSystem\\src\\QueuingSystem.Services\\QueuingSystem.Services.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -59,6 +181,67 @@
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
             },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\backend\\QueuingSystem\\src\\QueuingSystem.Services\\QueuingSystem.Services.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\backend\\QueuingSystem\\src\\QueuingSystem.Services\\QueuingSystem.Services.csproj",
+        "projectName": "QueuingSystem.Services",
+        "projectPath": "G:\\backend\\QueuingSystem\\src\\QueuingSystem.Services\\QueuingSystem.Services.csproj",
+        "packagesPath": "C:\\Users\\Acer\\.nuget\\packages\\",
+        "outputPath": "G:\\backend\\QueuingSystem\\src\\QueuingSystem.Services\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Acer\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "G:\\backend\\QueuingSystem\\src\\QueuingSystem.Entities\\QueuingSystem.Entities.csproj": {
+                "projectPath": "G:\\backend\\QueuingSystem\\src\\QueuingSystem.Entities\\QueuingSystem.Entities.csproj"
+              },
+              "G:\\backend\\QueuingSystem\\src\\QueuingSystem.Infrastructure\\QueuingSystem.Infrastructure.csproj": {
+                "projectPath": "G:\\backend\\QueuingSystem\\src\\QueuingSystem.Infrastructure\\QueuingSystem.Infrastructure.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }

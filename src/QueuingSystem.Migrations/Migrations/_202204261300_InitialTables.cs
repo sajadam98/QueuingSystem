@@ -1,4 +1,5 @@
 
+using System.Data;
 using FluentMigrator;
 
 [Migration(202204261300)]
@@ -27,13 +28,14 @@ public class _202204261300_InitialTables : Migration
     {
         Create.Table("Doctors").WithColumn("Id").AsInt32().PrimaryKey().Identity()
             .WithColumn("FirstName").AsString(50).NotNullable()
-            .WithColumn("IsActive").AsBoolean().WithDefaultValue(true)
             .WithColumn("LastName").AsString(70).NotNullable()
+            .WithColumn("IsActive").AsBoolean().WithDefaultValue(true)
             .WithColumn("NationalCode").AsString(10).NotNullable().Unique()
             .WithColumn("PhoneNumber").AsString(11).NotNullable()
             .WithColumn("PatientsPerDay").AsInt32().NotNullable()
             .WithColumn("ProficiencyId").AsInt32().NotNullable()
-            .ForeignKey("FK_Doctors_Proficiencies", "Proficiencies", "Id");
+            .ForeignKey("FK_Doctors_Proficiencies", "Proficiencies", "Id")
+            .OnDelete(Rule.Cascade);
     }
 
     void CreateProficienciesTable()
@@ -45,10 +47,10 @@ public class _202204261300_InitialTables : Migration
     void CreatePatientsTable()
     {
         Create.Table("Patients").WithColumn("Id").AsInt32().PrimaryKey().Identity()
-            .WithColumn("NationalCode").AsString(10).Unique()
-            .WithColumn("IsActive").AsBoolean().WithDefaultValue(true)
             .WithColumn("FirstName").AsString(50).NotNullable()
             .WithColumn("LastName").AsString(70).NotNullable()
+            .WithColumn("NationalCode").AsString(10).Unique()
+            .WithColumn("IsActive").AsBoolean().WithDefaultValue(true)
             .WithColumn("PhoneNumber").AsString(11).NotNullable();
     }
 
@@ -58,7 +60,9 @@ public class _202204261300_InitialTables : Migration
             .WithColumn("Date").AsDateTime().NotNullable()
             .WithColumn("PatientId").AsInt32().NotNullable()
             .ForeignKey("FK_Appintments_Patients", "Patients", "Id")
+            .OnDelete(Rule.Cascade)
             .WithColumn("DoctorId").AsInt32().NotNullable()
-            .ForeignKey("FK_Appintments_Doctors", "Doctors", "Id");
+            .ForeignKey("FK_Appintments_Doctors", "Doctors", "Id")
+            .OnDelete(Rule.Cascade);
     }
 }
