@@ -4,30 +4,24 @@ using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 
-public class DoctorsSeviceTest
+public class DoctorsServiceDoctorTest : DoctorTestFixture
 {
-    private readonly DoctorRepository _repository;
     private readonly DoctorService _sut;
-    private readonly UnitOfWork _unitOfWork;
-    private readonly EFDataContext _dbContext;
     private readonly DbSet<Doctor> _doctors;
 
-    public DoctorsSeviceTest()
+    public DoctorsServiceDoctorTest()
     {
-        _dbContext =
-            new EFInMemoryDatabase()
-                .CreateDataContext<EFDataContext>();
-        _unitOfWork = new EFUnitOfWork(_dbContext);
-        _repository = new EFDoctorRepository(_dbContext);
-        _sut = new DoctorAppService(_repository, _unitOfWork);
-        _doctors = _dbContext.Set<Doctor>();
+        UnitOfWork unitOfWork = new EFUnitOfWork(DbContext);
+        DoctorRepository repository = new EFDoctorRepository(DbContext);
+        _sut = new DoctorAppService(repository, unitOfWork);
+        _doctors = DbContext.Set<Doctor>();
     }
 
     [Fact]
     public void Add_adds_doctor_properly()
     {
-        var proficiency = AddProficiencyInDataBase();
-        var dto = DoctorFactory.GenerateAddDoctorDto(proficiency);
+        var dto =
+            DoctorFactory.GenerateAddDoctorDto(Proficiency);
 
         _sut.Add(dto);
 
@@ -39,20 +33,11 @@ public class DoctorsSeviceTest
             _.PatientsPerDay == dto.PatientPerDay);
     }
 
-    private Proficiency AddProficiencyInDataBase()
-    {
-        var proficiency = ProficiencyFactory.GenerateProficiency("dummy");
-        _dbContext.Manipulate(_ =>
-            _dbContext.Set<Proficiency>().Add(proficiency));
-        return proficiency;
-    }
-
     [Fact]
     public void
         Add_throw_InvalidPatientsPerDayException_when_patient_per_day_is_invalid()
     {
-        var proficiency = AddProficiencyInDataBase();
-        var dto = DoctorFactory.GenerateAddDoctorDto(proficiency);
+        var dto = DoctorFactory.GenerateAddDoctorDto(Proficiency);
         dto.PatientPerDay = 0;
 
         var expected = () => _sut.Add(dto);
@@ -64,10 +49,9 @@ public class DoctorsSeviceTest
     public void
         Add_throw_DuplicateDoctorsNationalCodeException_when_doctors_national_code_duplicate()
     {
-        var proficiency = AddProficiencyInDataBase();
-        var doctor = DoctorFactory.GenerateDoctor(proficiency, "dummy");
-        _dbContext.Manipulate(_ => _doctors.Add(doctor));
-        var dto = DoctorFactory.GenerateAddDoctorDto(proficiency);
+        var doctor = DoctorFactory.GenerateDoctor(Proficiency, "dummy");
+        DbContext.Manipulate(_ => _doctors.Add(doctor));
+        var dto = DoctorFactory.GenerateAddDoctorDto(Proficiency);
         dto.NationalCode = doctor.NationalCode;
 
         var expected = () => _sut.Add(dto);
@@ -79,18 +63,17 @@ public class DoctorsSeviceTest
     [Fact]
     public async void GetAll_returns_doctors_list_properly()
     {
-        var proficiency = AddProficiencyInDataBase();
         var doctors = new List<Doctor>();
         var doctor1 =
-            DoctorFactory.GenerateDoctor(proficiency, "dummy1");
+            DoctorFactory.GenerateDoctor(Proficiency, "dummy1");
         doctors.Add(doctor1);
         var doctor2 =
-            DoctorFactory.GenerateDoctor(proficiency, "dummy2");
+            DoctorFactory.GenerateDoctor(Proficiency, "dummy2");
         doctors.Add(doctor2);
         var doctor3 =
-            DoctorFactory.GenerateDoctor(proficiency, "dummy3");
+            DoctorFactory.GenerateDoctor(Proficiency, "dummy3");
         doctors.Add(doctor3);
-        _dbContext.Manipulate(_ => _doctors.AddRange(doctors));
+        DbContext.Manipulate(_ => _doctors.AddRange(doctors));
 
         var expected = await _sut.GetAll();
 
@@ -103,9 +86,8 @@ public class DoctorsSeviceTest
     [Fact]
     public void Update_updates_doctor_properly()
     {
-        var proficiency = AddProficiencyInDataBase();
-        var doctor = AddDoctorInDataBase(proficiency);
-        var dto = DoctorFactory.GenerateUpdateDoctorDto(proficiency);
+        var doctor = AddDoctorInDataBase();
+        var dto = DoctorFactory.GenerateUpdateDoctorDto(Proficiency);
 
         _sut.Update(doctor.Id, dto);
 
@@ -118,10 +100,10 @@ public class DoctorsSeviceTest
         expected.ProficiencyId.Should().Be(dto.ProficiencyId);
     }
 
-    private Doctor AddDoctorInDataBase(Proficiency proficiency)
+    private Doctor AddDoctorInDataBase()
     {
-        var doctor = DoctorFactory.GenerateDoctor(proficiency, "dummy2");
-        _dbContext.Manipulate(_ => _doctors.Add(doctor));
+        var doctor = DoctorFactory.GenerateDoctor(Proficiency, "dummy2");
+        DbContext.Manipulate(_ => _doctors.Add(doctor));
         return doctor;
     }
 
@@ -129,9 +111,8 @@ public class DoctorsSeviceTest
     public void
         Update_throw_DoctorNotFoundException_doctor_with_given_id_not_exist()
     {
-        var proficiency = AddProficiencyInDataBase();
-        AddDoctorInDataBase(proficiency);
-        var dto = DoctorFactory.GenerateUpdateDoctorDto(proficiency);
+        AddDoctorInDataBase();
+        var dto = DoctorFactory.GenerateUpdateDoctorDto(Proficiency);
 
         var expected = () => _sut.Update(1000, dto);
 
@@ -142,9 +123,8 @@ public class DoctorsSeviceTest
     public void
         Update_throw_InvalidPatientsPerDayException_when_patient_per_day_is_invalid()
     {
-        var proficiency = AddProficiencyInDataBase();
-        var doctor = AddDoctorInDataBase(proficiency);
-        var dto = DoctorFactory.GenerateUpdateDoctorDto(proficiency);
+        var doctor = AddDoctorInDataBase();
+        var dto = DoctorFactory.GenerateUpdateDoctorDto(Proficiency);
         dto.PatientPerDay = 0;
 
         var expected = () => _sut.Update(doctor.Id, dto);
@@ -156,9 +136,8 @@ public class DoctorsSeviceTest
     public void
         Update_throw_DuplicateDoctorsNationalCodeException_when_doctors_national_code_duplicate()
     {
-        var proficiency = AddProficiencyInDataBase();
-        var doctor = AddDoctorInDataBase(proficiency);
-        var dto = DoctorFactory.GenerateAddDoctorDto(proficiency);
+        var doctor = AddDoctorInDataBase();
+        var dto = DoctorFactory.GenerateAddDoctorDto(Proficiency);
         dto.NationalCode = doctor.NationalCode;
 
         var expected = () => _sut.Add(dto);
@@ -170,8 +149,7 @@ public class DoctorsSeviceTest
     [Fact]
     public void DeActivate_de_activate_doctor_with_given_id_properly()
     {
-        var proficiency = AddProficiencyInDataBase();
-        var doctor = AddDoctorInDataBase(proficiency);
+        var doctor = AddDoctorInDataBase();
 
         _sut.DeActivate(doctor.Id);
 
@@ -183,9 +161,7 @@ public class DoctorsSeviceTest
     public void
         DeActivate_throw_DoctorNotFoundException_doctor_with_given_id_not_exist()
     {
-        var proficiency =
-            AddProficiencyInDataBase();
-        var doctor = AddDoctorInDataBase(proficiency);
+        AddDoctorInDataBase();
 
         var expected = () => _sut.DeActivate(-1);
 
@@ -195,8 +171,7 @@ public class DoctorsSeviceTest
     [Fact]
     public void Activate_activate_doctor_with_given_id_properly()
     {
-        var proficiency = AddProficiencyInDataBase();
-        var doctor = AddDoctorInDataBase(proficiency);
+        var doctor = AddDoctorInDataBase();
 
         _sut.Activate(doctor.Id);
 
@@ -208,8 +183,7 @@ public class DoctorsSeviceTest
     public void
         Activate_throw_DoctorNotFoundException_doctor_with_given_id_not_exist()
     {
-        var proficiency = AddProficiencyInDataBase();
-        var doctor = AddDoctorInDataBase(proficiency);
+        AddDoctorInDataBase();
 
         var expected = () => _sut.Activate(-1);
 
